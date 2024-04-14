@@ -1,8 +1,31 @@
 //Länkar alla program
 const express = require('express');
 const cors = require("cors");
+const { Client, Connection } = require("pg");
+require("dotenv").config();
+
 const app = express();
 const port = process.env.PORT || 3000;
+
+//Anslut till databasen
+const client = new Client({
+    host: process.env.DB_HOST,
+    port: process.env.DB_PORT,
+    user: process.env.DB_USERNAME,
+    password: process.env.DB_PASSWORD,
+    database: process.env.DB_DATABASE,
+    ssl: {
+        rejectUnauthorized: false,
+    },
+});
+
+client.connect((err) => {
+    if (err) {
+        console.log("Fel vid anslutning: " + err);
+    } else {
+        console.log("Ansluten till databasen...");
+    }
+});
 
 app.use(cors());
 app.use(express.json());
@@ -16,7 +39,21 @@ app.get("/api", (req, res) => {
 
 //Route för att hämta data om jobberfarenheter från API
 app.get("/api/workexperience", (req, res) => {
-    res.json({ message: "Hämta jobberfarenheter"});
+    
+    //Hämta jobberfarenheter
+    client.query(`SELECT * FROM workexperience;`, (err, results) => {
+        if (err) {
+            res.status(500).json({error: "Något gick fel..." + err});
+            return;
+        }
+
+        if (results.rows.length === 0) {
+            res.status(404).json({message: "Inga jobberfarenheter hittade."})
+        } else {
+            res.json(results.rows);
+        }
+    })
+    
 });
 
 //Route för att posta data om jobberfarenhet till API
@@ -53,6 +90,9 @@ app.post("/api/workexperience", (req, res) => {
         //Stoppar posten från att sändas om något saknas
         return;
     }
+
+    //Lägg till jobberfarenhet
+    client.query()
 
     //Ger våra parametrar sina värden innan dom skickas till API i JSON-format
     let workexperience = {
