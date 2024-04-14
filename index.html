@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="sv">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Uppgift 2.1</title>
+</head>
+
+<body>
+    <h1>Express API</h1>
+
+    <script>
+        getData();
+
+        async function getData() {
+            const response = await fetch("http://127.0.0.1:3000/api/workexperience");
+
+            const data = await response.json();
+
+            console.log(data);
+        }
+    </script>
+</body>
+
+</html>
