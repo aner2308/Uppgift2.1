@@ -34,26 +34,26 @@ app.use(express.json());
 
 //Route för att hämta data från API
 app.get("/api", (req, res) => {
-    res.json({ message: "Välkommen till mitt API"});
+    res.json({ message: "Välkommen till mitt API" });
 });
 
 //Route för att hämta data om jobberfarenheter från API
 app.get("/api/workexperience", (req, res) => {
-    
+
     //Hämta jobberfarenheter
     client.query(`SELECT * FROM workexperience;`, (err, results) => {
         if (err) {
-            res.status(500).json({error: "Något gick fel..." + err});
+            res.status(500).json({ error: "Något gick fel..." + err });
             return;
         }
 
         if (results.rows.length === 0) {
-            res.status(404).json({message: "Inga jobberfarenheter hittade."})
+            res.status(404).json({ message: "Inga jobberfarenheter hittade." })
         } else {
             res.json(results.rows);
         }
     })
-    
+
 });
 
 //Route för att posta data om jobberfarenhet till API
@@ -77,7 +77,7 @@ app.post("/api/workexperience", (req, res) => {
     };
 
     //Mer detaljerat felmeddelande om något saknas.
-    if (!id || !companyname || !jobtitle || !location || !startdate || !enddate || !description) {
+    if (!companyname || !jobtitle || !location || !startdate || !enddate || !description) {
 
         errors.message = "Saknar information om arbetserfarenheten.";
         errors.details = "Du har inte fyllt i alla rutor i formuläret.";
@@ -92,11 +92,16 @@ app.post("/api/workexperience", (req, res) => {
     }
 
     //Lägg till jobberfarenhet
-    client.query()
+    client.query(`INSERT INTO workexperience(companyname, jobtitle, location, startdate, enddate, description) VALUES ($1, $2, $3, $4, $5, $6)`, [companyname, jobtitle, location, startdate, enddate, description], (err, results) => {
+        if (err) {
+            res.status(500).json({ error: "Något gick fel..." + err });
+            return;
+        }
 
-    //Ger våra parametrar sina värden innan dom skickas till API i JSON-format
+        console.log("Fråga skapad: " + results)
+
+            //Ger våra parametrar sina värden innan dom skickas till API i JSON-format
     let workexperience = {
-        id: id,
         companyname: companyname,
         jobtitle: jobtitle,
         location: location,
@@ -105,17 +110,19 @@ app.post("/api/workexperience", (req, res) => {
         description: description
     }
 
-    res.json({ message: "Ny jobberfarenhet tillagd", workexperience});
+    res.json({ message: "Ny jobberfarenhet tillagd", workexperience });
+    });
+
 });
 
 //Route för att redigera befintlig data från API (Ej klar, bara ett skal)
 app.put("/api/workexperience/:id", (req, res) => {
-    res.json({ message: "Jobberfarenhet uppdaterad: " + req.params.id});
+    res.json({ message: "Jobberfarenhet uppdaterad: " + req.params.id });
 });
 
 //Route för att radera data från API (Ej klar, bara ett skal)
 app.delete("/api/workexperience/:id", (req, res) => {
-    res.json({ message: "Jobberfarenhet raderad: " + req.params.id});
+    res.json({ message: "Jobberfarenhet raderad: " + req.params.id });
 });
 
 //Lyssnar på angiven port
