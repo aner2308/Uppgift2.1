@@ -31,6 +31,9 @@ app.use(cors());
 app.use(express.json());
 
 //ROUTES
+app.get("/", async (req, res) => {
+    res.render("index");
+});
 
 //Route för att hämta data från API
 app.get("/api", (req, res) => {
@@ -100,17 +103,17 @@ app.post("/api/workexperience", (req, res) => {
 
         console.log("Fråga skapad: " + results)
 
-            //Ger våra parametrar sina värden innan dom skickas till API i JSON-format
-    let workexperience = {
-        companyname: companyname,
-        jobtitle: jobtitle,
-        location: location,
-        startdate: startdate,
-        enddate: enddate,
-        description: description
-    }
+        //Ger våra parametrar sina värden innan dom skickas till API i JSON-format
+        let workexperience = {
+            companyname: companyname,
+            jobtitle: jobtitle,
+            location: location,
+            startdate: startdate,
+            enddate: enddate,
+            description: description
+        }
 
-    res.json({ message: "Ny jobberfarenhet tillagd", workexperience });
+        res.json({ message: "Ny jobberfarenhet tillagd", workexperience });
     });
 
 });
@@ -127,14 +130,14 @@ app.delete("/api/workexperience/:id", (req, res) => {
     //Radera posten från databasen
     client.query(`DELETE FROM workexperience WHERE id = $1`, [id], (err, results) => {
         if (err) {
-            res.status(500).json({ error: "Något gick fel..." + err});
+            res.status(500).json({ error: "Något gick fel..." + err });
             return;
         }
 
         if (results.rowCount === 0) {
-            res.status(404).json({ message: `Ingen jobberfarenhet med id ${id} hittades.`})
+            res.status(404).json({ message: `Ingen jobberfarenhet med id ${id} hittades.` })
         } else {
-            res.json({ message: `Jobberfarenhet med id ${id} har raderats.`})
+            res.json({ message: `Jobberfarenhet med id ${id} har raderats.` })
         }
     });
 });
