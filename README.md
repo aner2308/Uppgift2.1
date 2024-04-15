@@ -1,12 +1,39 @@
 # Uppgift 2.1 i kursen DT207G, Back-end.
 *Anton Eriksson, aner2308*
 
-Detta repo är skapat till uppg1ft 2.1 i kursen **DT207G**.
+Denna README-fil dokumenterar funktionaliteten för min webbapplikation. Applikationen är ett enklare REST API för hantering av jobberfarenheter.
 
-Uppgiften går ut på att skapa en applikation som hanterar arbetserfarenheter, så som tidigare arbetsplatser, vad man arbetade med, längd på anställning etcetera.
+### Beskrivning
+Min Webbapplikation tillhandahåller ett API för att hantera jobberfarenheter. Användare kan utföra CRUD-åtgärder (skapa, läsa, uppdatera, radera) på jobberfarenhetsposter via detta API.
 
-Webbtjänsten skall kunna hantera CRUD-operationer, Create Read Update och Delete.
+### Installation
+API:et använder en postgreSQL databas. Följ stegen nedan för installation.
 
-Webbtjänsten skall skapas med hjälp av NodeJs, Express samt en valfri relations-databas.
+1. Klona detta repo till din lokala maskin.
+2. Installera alla dependencies genom att köra npm install.
+3. Konfigurera miljövariabler genom att skapa en .env-fil och fylla i nödvändig information enligt .env.sample.
+4. Kör install.js filen för att skapa en tabell i din postgreSQL databas.
 
-Grundkravet är att databasen innehåller minst fyra stycken fält.
+### Användning
+### URI:er för CRUD
+- **GET /api/workexperience:** Hämta alla jobberfarenheter.
+- **POST /api/workexperience:** Skapa en ny jobberfarenhet. *Kräver JSON-data med fält som companyname, jobtitle, location, startdate, enddate, description. Se exempel:*
+```
+  {
+  "companyname": "1337forU",
+  "jobtitle": "Software Engineer",
+  "location": "Sundsvall",
+  "startdate": "2022-01-01",
+  "enddate": "2023-12-31",
+  "description": "Arbetade med utveckling av webbapplikationer och mjukvaruprodukter."
+}
+```
+- **DELETE /api/workexperience/:id:** Radera en jobberfarenhet med den angivna id:en.
+- **PUT /api/workexperience/:id:** Uppdatera en befintlig jobberfarenhet med den angivna id:en. (Ännu inte implementerad)
+Exempel på användning av API:et kan hittas i index.html-filen i detta repo.
+
+### Dependencies:
+- Express.js
+- cors
+- dotenv
+- PostgreSQL
