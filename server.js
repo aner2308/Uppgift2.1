@@ -122,7 +122,21 @@ app.put("/api/workexperience/:id", (req, res) => {
 
 //Route för att radera data från API (Ej klar, bara ett skal)
 app.delete("/api/workexperience/:id", (req, res) => {
-    res.json({ message: "Jobberfarenhet raderad: " + req.params.id });
+    const id = req.params.id;
+
+    //Radera posten från databasen
+    client.query(`DELETE FROM workexperience WHERE id = $1`, [id], (err, results) => {
+        if (err) {
+            res.status(500).json({ error: "Något gick fel..." + err});
+            return;
+        }
+
+        if (results.rowCount === 0) {
+            res.status(404).json({ message: `Ingen jobberfarenhet med id ${id} hittades.`})
+        } else {
+            res.json({ message: `Jobberfarenhet med id ${id} har raderats.`})
+        }
+    });
 });
 
 //Lyssnar på angiven port
