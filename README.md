@@ -1,12 +1,26 @@
 # Uppgift 2.1 i kursen DT207G, Back-end.
 *Anton Eriksson, aner2308*
 
-Detta repo är skapat till uppg1ft 2.1 i kursen **DT207G**.
+Denna README-fil dokumenterar funktionaliteten för min webbapplikation, en enkel webbtjänst för hantering av jobberfarenheter.
 
-Uppgiften går ut på att skapa en applikation som hanterar arbetserfarenheter, så som tidigare arbetsplatser, vad man arbetade med, längd på anställning etcetera.
+### Beskrivning
+Min Webbapplikation tillhandahåller ett API för att hantera jobberfarenheter. Användare kan utföra CRUD-åtgärder (skapa, läsa, uppdatera, radera) på jobberfarenhetsposter via detta API.
 
-Webbtjänsten skall kunna hantera CRUD-operationer, Create Read Update och Delete.
+### Installation
+1. Klona detta repo till din lokala maskin.
+2. Installera alla dependencies genom att köra npm install.
+3. Konfigurera miljövariabler genom att skapa en .env-fil och fylla i nödvändig information enligt .env.example.
 
-Webbtjänsten skall skapas med hjälp av NodeJs, Express samt en valfri relations-databas.
+### Användning
+### URI:er för CRUD
+- **GET /api/workexperience:** Hämta alla jobberfarenheter.
+- **POST /api/workexperience:** Skapa en ny jobberfarenhet. *Kräver JSON-data med fält som companyname, jobtitle, location, startdate, enddate, description.*
+- **DELETE /api/workexperience/:id:** Radera en jobberfarenhet med den angivna id:en.
+- **PUT /api/workexperience/:id:** Uppdatera en befintlig jobberfarenhet med den angivna id:en. (Ännu inte implementerad)
+Exempel på användning av API:et kan hittas i index.html-filen i detta repo.
 
-Grundkravet är att databasen innehåller minst fyra stycken fält.
+### Dependencies:
+- Express.js
+- cors
+- dotenv
+- PostgreSQL
