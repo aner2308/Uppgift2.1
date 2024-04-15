@@ -3,8 +3,8 @@
 
 let url = "http://127.0.0.1:3000/api/workexperience";
 getData();
-//deleteWorkexperience(10);
-//createWorkexperience("RTMD", "Brandman", "Västerås", "2017-06-01", "2023-10-01", "Brandman och räddningsdykare")
+deleteWorkexperience(10);
+createWorkexperience("RTMD", "Brandman", "Västerås", "2017-06-01", "2023-10-01", "Brandman och räddningsdykare")
 
 async function getData() {
     const response = await fetch(url);
