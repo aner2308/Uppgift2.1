@@ -29,10 +29,10 @@ client.connect((err) => {
 
 app.use(cors());
 app.use(express.json());
+app.use(express.static('public'));
 
-//ROUTES
-app.get("/", async (req, res) => {
-    res.render("index");
+app.get('/', (req, res) => {
+    res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });
 
 //Route för att hämta data från API
