@@ -30,7 +30,7 @@ DROP TABLE IF EXISTS workexperience;
         jobtitle        VARCHAR(30) NOT NULL,
         location        VARCHAR,
         startdate       DATE,
-        enddate         DATE,
+        enddate         VARCHAR,
         description     TEXT
     )`
 )
