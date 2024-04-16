@@ -6,6 +6,9 @@ Denna README-fil dokumenterar funktionaliteten för min webbapplikation. Applika
 ### Beskrivning
 Min Webbapplikation tillhandahåller ett API för att hantera jobberfarenheter. Användare kan utföra CRUD-åtgärder (skapa, läsa, uppdatera, radera) på jobberfarenhetsposter via detta API.
 
+### Länk till liveversion av API:et
+https://uppgift2-1.onrender.com/
+
 ### Installation
 API:et använder en postgreSQL databas. Följ stegen nedan för installation.
 
@@ -36,4 +39,4 @@ Exempel på användning av API:et kan hittas i index.html-filen i detta repo.
 - Express.js
 - cors
 - dotenv
-- PostgreSQL
+- PostgreSQL 🐘
