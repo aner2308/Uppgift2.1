@@ -95,6 +95,10 @@ app.post("/api/workexperience", (req, res) => {
         return;
     }
 
+    if(!enddate.trim()) {
+        enddate = "Pågående jobb"
+    }
+
     //Lägg till jobberfarenhet
     client.query(`INSERT INTO workexperience(companyname, jobtitle, location, startdate, enddate, description) VALUES ($1, $2, $3, $4, $5, $6)`, [companyname, jobtitle, location, startdate, enddate, description], (err, results) => {
         if (err) {
