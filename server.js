@@ -81,7 +81,7 @@ app.post("/api/workexperience", (req, res) => {
     };
 
     //Mer detaljerat felmeddelande om något saknas.
-    if (!companyname || !jobtitle || !location || !startdate || !enddate || !description) {
+    if (!companyname || !jobtitle || !location || !startdate || !description) {
 
         errors.message = "Saknar information om arbetserfarenheten.";
         errors.details = "Du har inte fyllt i alla rutor i formuläret.";
