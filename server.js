@@ -45,7 +45,7 @@ app.get("/api", (req, res) => {
 app.get("/api/workexperience", (req, res) => {
 
     //Hämta jobberfarenheter
-    client.query(`SELECT * FROM workexperience;`, (err, results) => {
+    client.query(`SELECT id, jobtitle, location, TO_CHAR(startdate, 'YYYY-MM-DD') AS startdate, enddate, description FROM workexperience;`, (err, results) => {
         if (err) {
             res.status(500).json({ error: "Något gick fel..." + err });
             return;
