@@ -125,7 +125,28 @@ app.post("/api/workexperience", (req, res) => {
 
 //Route för att redigera befintlig data från API (Ej klar, bara ett skal)
 app.put("/api/workexperience/:id", (req, res) => {
-    res.json({ message: "Jobberfarenhet uppdaterad: " + req.params.id });
+    const id = req.params.id;
+    const { companyname, jobtitle, location, startdate, enddate, description } = req.body;
+
+    // Uppdatera jobberfarenhet i databasen
+    client.query(
+        `UPDATE workexperience 
+        SET companyname = $1, jobtitle = $2, location = $3, startdate = $4, enddate = $5, description = $6 
+        WHERE id = $7`,
+        [companyname, jobtitle, location, startdate, enddate, description, id],
+        (err, results) => {
+            if (err) {
+                res.status(500).json({ error: "Något gick fel..." + err });
+                return;
+            }
+
+            if (results.rowCount === 0) {
+                res.status(404).json({ message: `Ingen jobberfarenhet med id ${id} hittades.` });
+            } else {
+                res.json({ message: `Jobberfarenhet med id ${id} har uppdaterats.` });
+            }
+        }
+    );
 });
 
 //Route för att radera data från API (Ej klar, bara ett skal)
