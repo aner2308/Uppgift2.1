@@ -32,7 +32,7 @@ API:et använder en postgreSQL databas. Följ stegen nedan för installation.
 }
 ```
 - **DELETE /api/workexperience/:id:** Radera en jobberfarenhet med den angivna id:en.
-- **PUT /api/workexperience/:id:** Uppdatera en befintlig jobberfarenhet med den angivna id:en. (Ännu inte implementerad)
+- **PUT /api/workexperience/:id:** Uppdatera en befintlig jobberfarenhet med den angivna id:en. 
 Exempel på användning av API:et kan hittas i index.html-filen i detta repo.
 
 ### Dependencies:
